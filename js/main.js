@@ -1,51 +1,87 @@
-function createTemplate(books) {
-  const main = document.querySelector('.books-container');
+class Model {
+  constructor(){
+    if (!localStorage.getItem('books')){
+      localStorage.setItem('books', JSON.stringify([]));
+      this.booksData = JSON.parse(localStorage.getItem('books'));
+    } else {
+      this.booksData = JSON.parse(localStorage.getItem('books'));
+    }
+  }
 
-  books.forEach((item, index) => {
-    const bookTemplate = document.querySelector('.book-template');
-    const book = bookTemplate.content.firstElementChild.cloneNode(true);
-
-    const bookTitle = book.querySelector('.book-title');
-    bookTitle.textContent = item.title;
-
-    const bookAuthor = book.querySelector('.book-author');
-    bookAuthor.textContent = item.author;
-
-    const removeBookButton = book.querySelector('.remove-book');
-    removeBookButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      const books = JSON.parse(localStorage.getItem('books'));
-      books.splice(index, 1);
-
-      localStorage.setItem('books', JSON.stringify(books));
-      book.parentNode.removeChild(book);
-    });
-
-    main.appendChild(book);
-  });
-}
-
-function checkFormObject() {
-  if (!localStorage.getItem('books')) {
-    // if not, create an empty object
-    const books = [];
-    // serialize the object to local storage
-    localStorage.setItem('books', JSON.stringify(books));
-  } else {
-    const books = JSON.parse(localStorage.getItem('books'));
-    createTemplate(books);
+  setBookItem(bookItem){
+    let parsedBooksData = JSON.parse(localStorage.getItem('books'));
+    parsedBooksData.push(bookItem);
+    localStorage.setItem('books', JSON.stringify(parsedBooksData));
+  } 
+  getBooks(){
+    return this.booksData;
   }
 }
 
-window.onload = () => {
-  checkFormObject();
-  const addBookForm = document.querySelector('#addBookForm');
-  addBookForm.onsubmit = (e) => {
-    const bookItem = Object.fromEntries(new FormData(e.target).entries());
-    const books = JSON.parse(localStorage.getItem('books'));
-    books.push(bookItem);
 
-    // serialize form object to local storage
-    localStorage.setItem('books', JSON.stringify(books));
-  };
-};
+class View {
+  constructor(){
+    this.booksContainer = document.querySelector('.books-container');
+    this.form = document.querySelector('form');
+  }
+
+  handleSubmit(model){
+    this.form.addEventListener('submit', (e) => {
+      const bookItem = Object.fromEntries(new FormData(e.target).entries());
+      model.setBookItem(bookItem);
+    });
+  }
+
+  renderBooks(books){
+    books.forEach((item, index) => {
+      let bookTemplate = document.querySelector('.book-template');
+      let book = bookTemplate.content.firstElementChild.cloneNode(true);
+      
+      let bookTitle = book.querySelector('.book-title');
+      bookTitle.textContent = item.title;
+
+      let bookAuthor = book.querySelector('.book-author');  
+      bookAuthor.textContent = item.author;
+
+      let removeBookButton = book.querySelector('.remove-book');
+      removeBookButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const books = JSON.parse(localStorage.getItem('books'));
+        books.splice(index,1);
+        
+        localStorage.setItem('books', JSON.stringify(books));
+        book.parentNode.removeChild(book);
+      });
+
+      this.booksContainer.appendChild(book);
+    });
+  }
+
+}
+
+class Controller{
+  constructor(model, view){
+    this.model = model
+    this.view = view
+
+    this.view.handleSubmit(this.model);
+    this.listBooks();
+  }
+
+  listBooks(){
+    this.view.renderBooks(this.model.getBooks());
+  }
+
+}
+
+class App {
+  constructor(){
+    this.controller = new Controller(new Model(), new View());
+  }
+}
+
+const app = new App();
+
+
+
+
