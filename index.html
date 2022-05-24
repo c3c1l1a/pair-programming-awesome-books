@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awesome Books</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+<body>
+	<header>
+		<h1>Awesome Books</h1>
+	</header>
+	<main>
+		<div class="books-container">
+			
+		</div>
+		<form id="addBookForm">
+			<label for="bookTitle">
+				<input type="text" id="bookTitle" placeholder="Title"  name="title" required>
+			</label><br><br>
+			<label for="bookAuthor">
+				<input type="text" id="bookAuthor" placeholder="Author" name="author" required>
+			</label><br><br>
+			<button id="addBookButton" type="submit" class="submitButton">Add</button>
+		</form>
+	</main>
+	<template class="book-template">
+		<div>
+			<h2 class="book-title">Book Title</h2>
+			<p class="book-author">Author</p>
+			<button class="remove-book">Remove</button>
+			<hr>
+		</div>
+	</template>
+	<script src="js/main.js"></script>
+</body>
+</html>
