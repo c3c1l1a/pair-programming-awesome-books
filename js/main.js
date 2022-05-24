@@ -1,6 +1,6 @@
 class Model {
-  constructor(){
-    if (!localStorage.getItem('books')){
+  constructor() {
+    if (!localStorage.getItem('books')) {
       localStorage.setItem('books', JSON.stringify([]));
       this.booksData = JSON.parse(localStorage.getItem('books'));
     } else {
@@ -8,47 +8,49 @@ class Model {
     }
   }
 
-  setBookItem(bookItem){
-    let parsedBooksData = JSON.parse(localStorage.getItem('books'));
+  setBookItem(bookItem) {
+    const parsedBooksData = JSON.parse(localStorage.getItem('books'));
     parsedBooksData.push(bookItem);
     localStorage.setItem('books', JSON.stringify(parsedBooksData));
-  } 
-  getBooks(){
+  }
+
+  getBooks() {
     return this.booksData;
   }
 }
 
-
 class View {
-  constructor(){
+  constructor() {
     this.booksContainer = document.querySelector('.books-container');
     this.form = document.querySelector('form');
   }
 
-  handleSubmit(model){
+  handleSubmit(model) {
     this.form.addEventListener('submit', (e) => {
       const bookItem = Object.fromEntries(new FormData(e.target).entries());
       model.setBookItem(bookItem);
     });
   }
 
-  renderBooks(books){
+  renderBooks(books) {
     books.forEach((item, index) => {
-      let bookTemplate = document.querySelector('.book-template');
-      let book = bookTemplate.content.firstElementChild.cloneNode(true);
-      
-      let bookTitle = book.querySelector('.book-title');
+      const bookTemplate = document.querySelector('.book-template');
+      const book = bookTemplate.content.firstElementChild.cloneNode(true);
+      if (index % 2 === 1) {
+        book.classList.add('grey');
+      }
+      const bookTitle = book.querySelector('.book-title');
       bookTitle.textContent = item.title;
 
-      let bookAuthor = book.querySelector('.book-author');  
+      const bookAuthor = book.querySelector('.book-author');
       bookAuthor.textContent = item.author;
 
-      let removeBookButton = book.querySelector('.remove-book');
+      const removeBookButton = book.querySelector('.remove-book');
       removeBookButton.addEventListener('click', (e) => {
         e.preventDefault();
         const books = JSON.parse(localStorage.getItem('books'));
-        books.splice(index,1);
-        
+        books.splice(index, 1);
+
         localStorage.setItem('books', JSON.stringify(books));
         book.parentNode.removeChild(book);
       });
@@ -56,32 +58,26 @@ class View {
       this.booksContainer.appendChild(book);
     });
   }
-
 }
 
-class Controller{
-  constructor(model, view){
-    this.model = model
-    this.view = view
+class Controller {
+  constructor(model, view) {
+    this.model = model;
+    this.view = view;
 
     this.view.handleSubmit(this.model);
     this.listBooks();
   }
 
-  listBooks(){
+  listBooks() {
     this.view.renderBooks(this.model.getBooks());
   }
-
 }
 
 class App {
-  constructor(){
+  constructor() {
     this.controller = new Controller(new Model(), new View());
   }
 }
 
 const app = new App();
-
-
-
-
