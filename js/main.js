@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 class Model {
   constructor() {
     if (!localStorage.getItem('books')) {
@@ -12,6 +14,7 @@ class Model {
     const parsedBooksData = JSON.parse(localStorage.getItem('books'));
     parsedBooksData.push(bookItem);
     localStorage.setItem('books', JSON.stringify(parsedBooksData));
+    this.booksData = parsedBooksData;
   }
 
   getBooks() {
@@ -66,7 +69,6 @@ class Controller {
     this.view = view;
 
     this.view.handleSubmit(this.model);
-    this.listBooks();
   }
 
   listBooks() {
@@ -74,10 +76,7 @@ class Controller {
   }
 }
 
-class App {
-  constructor() {
-    this.controller = new Controller(new Model(), new View());
-  }
-}
-
-const app = new App();
+window.onload = () => {
+  const controller = new Controller(new Model(), new View());
+  controller.listBooks();
+};
