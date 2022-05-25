@@ -25,9 +25,9 @@ header {
   margin: 50px 70px 20px 70px;
   border: 2px solid rgb(73, 71, 71);
   padding: 15px 25px;
+
   /* margin: 50px 40px 50px 40px; */
 }
-
 
 header h1 {
   font-size: 45px;
@@ -116,13 +116,13 @@ nav ul li a {
   color: #000;
 }
 
-/*nav ul li a:hover{
+/* nav ul li a:hover{
   color: #3b3b94;
 }
 
 nav ul li a:active{
   color: #3b3b94;
-}*/
+} */
 
 .blue {
   color: red;
@@ -150,7 +150,7 @@ nav ul li a:active{
   gap: 70px;
 }
 
-contact-page-container ul {
+.contact-page-container ul {
   list-style-type: circle;
 }
 
