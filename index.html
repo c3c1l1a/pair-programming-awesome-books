@@ -6,26 +6,24 @@
 <link rel="stylesheet" type="text/css" href="styles.css">
 <body>
 	<header>
-		<h1>All Awesome Books</h1>
+		<nav>
+			<ul>
+				<li><a class="nav-list-books"href="#">List</a></li>
+				<li><a class="nav-add-new" href="#">Add new</a></li>
+				<li><a class="nav-contact"href="#">Contact</a></li>
+			</ul>
+		</nav>
 	</header>
 	<main>
-		<div class="books-container">
-			
-		</div>
-		<hr>
-		<form id="addBookForm">
-			<h2>Add New Book</h2>
-			<label for="bookTitle">
-				<input type="text" id="bookTitle" placeholder="Title"  name="title" required>
-			</label>
-			<label for="bookAuthor">
-				<input type="text" id="bookAuthor" placeholder="Author" name="author" required>
-			</label>
-			<div class="btn">
-			<button id="addBookButton" type="submit" class="submitButton">Add</button>
-			</div>
-		</form>
+		
+		
 	</main>
+	<template class="list-books-page" >
+		<div class="list-books-page-container">
+			<h1>All Awesome books</h1>
+			<div class="books-container"></div>
+		</div>
+	</template>
 	<template class="book-template">
 		<div class="book">
 			<div class="content">
@@ -34,6 +32,36 @@
 			    <p class="book-author">Author</p>
 			</div>
 			<button class="remove-book">Remove</button>
+		</div>
+	</template>
+	<template class="form-page">
+		<div class="form-page-container">
+			<form id="addBookForm">
+				<h2>Add New Book</h2>
+				<label for="bookTitle">
+					<input type="text" id="bookTitle" placeholder="Title"  name="title" required>
+				</label>
+				<label for="bookAuthor">
+					<input type="text" id="bookAuthor" placeholder="Author" name="author" required>
+				</label>
+				<div class="btn">
+				<button id="addBookButton" type="submit" class="submitButton">Add</button>
+				</div>
+			</form>
+		</div>
+	</template>
+	<template class="contact-page">
+		<div class="contact-page-container">
+			<h1>Contact information</h1>
+			<p>
+				Do you have any question or do you just want to say "Hello"?<br/>
+				You can reach out to us!
+				<ul>
+					<li>Our email mail@mail.com</li>
+					<li>Our phone number is +21197303270</li>
+					<li>Our address is 80987 town, city, country</li>
+				</ul>
+			</p>
 		</div>
 	</template>
 	<script src="js/main.js"></script>

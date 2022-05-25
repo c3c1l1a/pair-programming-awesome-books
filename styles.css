@@ -90,3 +90,14 @@ form button {
   justify-content: end;
   width: 100%;
 }
+
+nav ul {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+nav ul > * {
+  text-decoration: none;
+  list-style-type: none;
+}
