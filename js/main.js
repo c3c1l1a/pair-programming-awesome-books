@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable max-classes-per-file */
 
 class Model {
@@ -31,7 +32,7 @@ class View {
     this.listBooksPage.classList.add('blue');
   }
 
-  removeOldTemplates(){
+  removeOldTemplates() {
     this.listBooksPage.classList.remove('blue');
     this.contactPage.classList.remove('blue');
     this.addNewPage.classList.remove('blue');
@@ -39,24 +40,27 @@ class View {
     const oldBooksContainer = document.querySelector('.list-books-page-container');
     const oldFormPage = document.querySelector('.form-page-container');
     const oldContactContainer = document.querySelector('.contact-page-container');
-    
-    if (oldBooksContainer !== null)
-      oldBooksContainer.parentNode.removeChild(oldBooksContainer);
-    
-    if (oldFormPage !== null)
-      oldFormPage.parentNode.removeChild(oldFormPage);
 
-    if (oldContactContainer !== null)
+    if (oldBooksContainer !== null) {
+      oldBooksContainer.parentNode.removeChild(oldBooksContainer);
+    }
+
+    if (oldFormPage !== null) {
+      oldFormPage.parentNode.removeChild(oldFormPage);
+    }
+
+    if (oldContactContainer !== null) {
       oldContactContainer.parentNode.removeChild(oldContactContainer);
+    }
   }
 
-  handleNav(model){
+  handleNav(model) {
     this.addNewPage.addEventListener('click', (e) => {
       e.preventDefault();
       this.removeOldTemplates();
 
       e.target.classList.add('blue');
-      
+
       const mainTag = document.querySelector('main');
       const formPage = document.querySelector('.form-page');
       const formTemplate = formPage.content.firstElementChild.cloneNode(true);
@@ -65,12 +69,12 @@ class View {
       this.handleSubmit(model);
     });
 
-    this.listBooksPage.addEventListener('click', (e) => { 
-      e.preventDefault()
+    this.listBooksPage.addEventListener('click', (e) => {
+      e.preventDefault();
       this.removeOldTemplates();
 
       e.target.classList.add('blue');
-      this.renderBooks(model.getBooks()); 
+      this.renderBooks(model.getBooks());
     });
 
     this.contactPage.addEventListener('click', (e) => {
@@ -84,23 +88,19 @@ class View {
       const contactPageTemplate = contactPage.content.firstElementChild.cloneNode(true);
       mainTag.appendChild(contactPageTemplate);
     });
-
-
-
   }
+
   handleSubmit(model) {
     const form = document.querySelector('form');
-    if (form !== null){
+    if (form !== null) {
       form.addEventListener('submit', (e) => {
         const bookItem = Object.fromEntries(new FormData(e.target).entries());
         model.setBookItem(bookItem);
       });
     }
-    
   }
 
   renderBooks(books) {
-
     const mainTag = document.querySelector('main');
     const listPage = document.querySelector('.list-books-page');
     const listPageTemplate = listPage.content.firstElementChild.cloneNode(true);
@@ -122,6 +122,7 @@ class View {
       removeBookButton.addEventListener('click', (e) => {
         e.preventDefault();
         window.location.reload();
+
         const books = JSON.parse(localStorage.getItem('books'));
         books.splice(index, 1);
 
@@ -129,12 +130,10 @@ class View {
         book.parentNode.removeChild(book);
       });
 
-      if (booksContainer !== null ){
+      if (booksContainer !== null) {
         booksContainer.appendChild(book);
         listPageTemplate.appendChild(booksContainer);
       }
-      
-        
     });
     mainTag.appendChild(listPageTemplate);
   }
