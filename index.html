@@ -6,28 +6,34 @@
 <link rel="stylesheet" type="text/css" href="styles.css">
 <body>
 	<header>
-		<h1>Awesome Books</h1>
+		<h1>All Awesome Books</h1>
 	</header>
 	<main>
 		<div class="books-container">
 			
 		</div>
+		<hr>
 		<form id="addBookForm">
+			<h2>Add New Book</h2>
 			<label for="bookTitle">
 				<input type="text" id="bookTitle" placeholder="Title"  name="title" required>
-			</label><br><br>
+			</label>
 			<label for="bookAuthor">
 				<input type="text" id="bookAuthor" placeholder="Author" name="author" required>
-			</label><br><br>
+			</label>
+			<div class="btn">
 			<button id="addBookButton" type="submit" class="submitButton">Add</button>
+			</div>
 		</form>
 	</main>
 	<template class="book-template">
-		<div>
-			<h2 class="book-title">Book Title</h2>
-			<p class="book-author">Author</p>
+		<div class="book">
+			<div class="content">
+				<p class="book-title">Book Title</p>
+				<p>by</p>
+			    <p class="book-author">Author</p>
+			</div>
 			<button class="remove-book">Remove</button>
-			<hr>
 		</div>
 	</template>
 	<script src="js/main.js"></script>
